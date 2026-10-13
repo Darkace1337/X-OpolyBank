@@ -1,0 +1,202 @@
+THE BANK — X-opoly
+
+RUN
+Requires Python 3.10 or newer. No downloads or Python packages are required.
+Open a terminal in this folder and run:
+  python3 server.py
+On Windows:
+  py server.py
+Or use start.sh (Linux/macOS) or start.bat (Windows).
+
+Open the Host / banker URL printed in the terminal and enter your player name.
+Give other players only the Players on your Wi-Fi URL. They open it in any
+modern browser on the same local network. Keep this computer awake and the
+server running. If needed, allow inbound TCP port 8000 through your firewall.
+The app is for a trusted local network; it is not an internet-hosted service.
+Use the same address and browser to retain your player identity.
+
+PLAY
+The host is also a player and can make bank payments and edit house rules.
+Set starting cash before others join. Changes affect new players only; use
+bank payments to adjust players already seated.
+
+Banking: send money, pay fixed or percentage tax, collect the
+optional Free Parking pot. Only the banker can pay GO salaries, including
+landing-on-GO bonuses, to a selected player. Board movement, dice, card instructions, and turn
+order stay at your physical board. Players trigger transactions manually;
+balances and ownership update automatically for everyone.
+
+Market (banker only): select an unowned deed and the player who landed there,
+then sells it to them at face value or opens an auction for all players.
+Players cannot buy unowned deeds without the banker.
+Properties: shows only your deeds; mortgage/unmortgage, buy or sell houses
+and hotels. Mortgaged deeds appear below regular deeds.
+Rent: other players' deeds grouped by owner. Cards show the current rent
+due (not purchase price), including buildings and ownership bonuses.
+Utilities show the dice multiplier; enter the dice total to preview payment.
+The payment button displays the exact amount and recipient. A changed
+rent or owner is checked again by the server before money is transferred.
+House rules > Customize properties (banker only): select any of the 28
+properties and save its new name, regardless of who owns it.
+A color group must have no buildings to trade or mortgage any of its deeds.
+The app enforces 32 houses and 12 hotels and optionally even building.
+
+Auctions: only the banker can start an auction, including for owned deeds. Opening bid is $10. Tap Bid $10 or add $1/$5/$10/$25/$100.
+The clock starts immediately and resets on every accepted bid. Set Auction
+time (seconds) in House rules: 1–300 seconds, default 5. Only the banker
+can change it. New auctions use the saved duration; running auctions keep
+their original duration for the opening countdown and every bid.
+The current highest bidder is locked out until another player bids. This
+also applies to the banker. Blocked bids do not restart the clock or flash.
+An auction with no bids expires without a sale. Winning bids reserve cash.
+The server settles the winner automatically, even when browsers close.
+Mortgaged deeds must be released before auctioning. Sellers cannot bid.
+
+Trades: offer any number of properties and money in both directions.
+The recipient accepts or rejects; the sender can withdraw. Offers do not
+reserve assets. Acceptance rechecks cash, ownership, mortgage/building state,
+and auction locks. Failed trades move nothing. Mortgages remain attached;
+this version waives immediate mortgage-transfer interest. Release interest
+still applies when unmortgaging. Trades use gross cash amounts: both parties
+must be able to pay their offered amounts before credits are applied.
+
+House rules: starting cash, GO salary, double landing-on-GO salary,
+Free Parking tax pot, negative balances, even building, mortgage interest,
+percentage tax rate, cash/net-worth tax base, and rounding up/down.
+Net worth uses purchase value for unmortgaged properties, mortgage value
+for mortgaged properties, and purchase cost for buildings.
+
+SAVING AND NEW GAMES
+Every successful action automatically saves to game.json. Restarting the
+server resumes it, including player sessions and any expired auction.
+Keep game.json private: it includes player sessions and the host key.
+To back up, stop the server with Ctrl+C and copy game.json.
+To start a separate new game without overwriting this one:
+  python3 server.py --data another-game.json
+Use --port 8080 if port 8000 is already in use.
+To restore banker access in another browser, open the complete Host / banker
+URL printed in the server terminal. If already joined, that player gains
+banker controls; otherwise enter your existing name to resume that player.
+You can also click Banker access and paste the banker link or key. On the
+join screen, choose your existing player. Money and deeds are preserved.
+Keep the banker link private; the player invite link cannot grant access.
+For ordinary players, if browser storage is cleared, there is no self-service identity recovery;
+the host can reconcile balances/properties using payments and trades with
+a replacement player. Keep the original browser session where possible.
+
+PLAYER PIECES
+Choose a piece when joining; click your name/icon in the header to edit your name or change your piece.
+Each piece is exclusive to one player. Choices cover current and classic
+sets: top hat, race car, battleship, Scottie dog, cat, rubber duck, penguin,
+T-Rex, thimble, boot, iron, wheelbarrow, horse & rider, money bag, cannon.
+Icons are bundled for offline use; attribution is in ICON-CREDITS.txt.
+
+TABLE MANAGEMENT
+House rules > Manage table offers banker-only Kick player and Reset game.
+Kick revokes the player session, returns deeds to the bank without buildings
+or mortgages, removes their trades, and cancels involved auctions. Kicked
+players can rejoin; this is not a permanent ban. Bankers cannot be kicked.
+Reset requires typing RESET. Other players are disconnected; the initiating
+banker stays with starting cash. Rules and custom names are preserved;
+ownership, buildings, mortgages, trades, auctions, pot and ledger are reset.
+Both actions save private recovery copies under backups/ beside game.json.
+To recover, stop the server and copy the desired backup over game.json.
+Do not share backups: they contain player sessions.
+
+PROPERTY EDITIONS
+Starter definitions live in Variants/<variant name>/properties.csv. See PROPERTY-CSV.txt
+for columns and import/export instructions. Banker controls are under
+House rules > Customize properties > Property spreadsheet. Imported sheets
+are saved with the game and survive resets.
+
+QR INVITATIONS
+Click the Invite your players address to display a QR code. It contains
+only the local join URL, never the banker key. Players scan it on the same
+Wi-Fi. QR generation is local; no external QR service is contacted.
+
+TAX SPACES
+Banking has fixed Income Tax ($200) and Luxury Tax ($100) buttons. The
+Hello Kitty and Friends variant calls the latter Renovation. The server enforces those amounts regardless of percentage
+tax settings. The optional Free Parking rule also collects these payments.
+
+SHUTDOWN
+Run ./shutdown.sh (Linux/macOS), shutdown.bat (Windows), or:
+  python3 shutdown.py
+This saves and stops only the X-opoly server, not the computer. Run it
+on the banker computer from this app's folder. No admin/sudo required.
+For a custom server, use the same --port and --data values:
+  python3 shutdown.py --port 8080 --data another-game.json
+The shutdown script requires the updated server.py. If an older server
+is already running, stop it with Ctrl+C once and start the updated version.
+Future stops can use the shutdown script. Existing game data is preserved.
+Restart with start.sh/start.bat to resume. Auction deadlines are preserved;
+an expired auction settles when the game resumes.
+
+BID FLASHES
+Accepted bids flash the auction panel orange for the bidder and white for
+all other players. Live server events share a timestamp to synchronize
+connected browsers; network latency or background tabs can delay display.
+Reduced-motion preferences use a colored outline instead of a full-panel
+flash. Rejected bids do not flash. No client installation is needed.
+
+BANKRUPTCY
+Banking > Declare bankruptcy requires typing BANKRUPT and confirming.
+Only a player can declare their own bankruptcy. Their cash becomes $0; all
+their properties return to the bank with mortgages and buildings cleared.
+Pending trades and auctions involving them are cancelled. They remain
+visible as Bankrupt and can watch but cannot participate until a new game.
+A bankrupt banker retains table management and banking for other players.
+A private recovery copy is saved under backups/ before bankruptcy.
+
+END OF GAME AND MOBILE PLAY
+After a bankruptcy leaves one active player (with at least two players at
+the table), everyone sees a winner screen. Gameplay stops; the banker can
+use Start a new game to reset with confirmation. Results survive restarts.
+Phones use bottom navigation, larger tap targets, horizontally scrolling
+player balances, and two-column property cards. Mortgaged properties are
+grouped below regular properties.
+Banking > Pay $50 · Get out of jail pays your own fee to the bank and records
+it in the ledger. It does not contribute to Free Parking.
+Tap your name/icon in the header to rename yourself. Names must be unique
+and 1–32 characters. Renaming preserves your money, properties, and login.
+
+VARIANTS AND INITIAL SETUP
+New saves use Normal: standard property names and classic player pieces.
+Open the Host / banker link and join. Go to House rules > Customize properties > Game variant. Choose a folder
+name and click Apply variant. This works after other players join, until
+gameplay starts. Then tap your player icon to choose
+a piece. All players receive the selected variant; classic pieces remain
+available with every variant.
+
+Add editions under Variants/<edition name>/. Each immediate subfolder is
+automatically listed by name. It must contain properties.csv with the same
+headers as the Normal template. Optional PNGs go directly in that folder;
+the filename without .png becomes the piece label. Use valid PNGs under
+5 MB each. Reference files in deeper subfolders are not player icons.
+No manifest or source-code changes are required. Refresh the browser after
+adding a folder or PNG. Invalid variants show an explanation and cannot be
+selected. Folder names and filenames are case-sensitive on Linux.
+
+Included: Normal, Classic U.S. Edition, and Hello Kitty and Friends
+(themed property names only). No character artwork is included.
+Optional local PNG icons are supported and appear before classic pieces.
+Variant selection copies the CSV into the save. Editing a folder does not
+silently replace a running game's values. Reset to return to setup; the
+previous variant remains selected until the banker applies another one.
+
+UPGRADING
+The app folder is now x-opoly. Stop the old server, extract the new folder,
+and copy your existing game.json (and optionally backups/) into it before
+starting. Keep using the same browser and URL to retain your login. Existing
+property names, balances, mortgages, buildings, and sessions are preserved.
+Older themed saves retain their theme; brand-new games default to Normal.
+Older CSV headers are accepted; new exports use set_multiplier.
+
+SPACE ADVENTURE EXAMPLE
+Space Adventure includes 28 fictional property names and seven original
+black-and-white character icons. See Variants/Space Adventure/README.txt.
+
+ADDITIONAL EDITIONS
+Seven additional regional/themed property sets are included. See
+Variants/VERIFICATION-NOTES.txt. World Edition is excluded.
+The Star Wars mapping is marked Provisional in the variant dropdown.

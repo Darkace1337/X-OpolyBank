@@ -1,0 +1,65 @@
+PROPERTY CSV — EDITING GUIDE
+
+IN THE APP
+Banker: House rules > Customize properties > Download property CSV.
+Open it in Excel, LibreOffice, Numbers or a plain-text editor.
+Save as comma-separated CSV UTF-8, keeping the column headers.
+Choose the edited file, click Validate & preview, then Apply property sheet.
+Imports are all-or-nothing. Invalid rows display a row number and explanation.
+No client installation is required; the banker imports through the browser.
+
+WHEN TO IMPORT
+Import before purchasing any properties, or reset the game first.
+Owned properties, auctions, and pending trades block imports.
+Reset is never performed automatically. Import preserves player balances,
+player identities, and house rules. It replaces the whole property catalog.
+A private game backup is created before a successful import.
+
+WHERE DATA LIVES
+Variants/<variant name>/properties.csv is the editable starter catalog.
+Normal is used for new saves; the banker can choose another variant during
+initial setup. There are no hardcoded property names, prices or rent schedules
+in server.py anymore. Existing saves preserve a snapshot of their edition,
+including imports, across restarts and resets. Editing properties.csv does
+not silently change a saved game. Use the in-app import to update that game.
+Download property CSV exports the CURRENT edition, including name edits.
+Normal contains standard property names. Hello Kitty and Friends contains
+your supplied themed names, with Electric and Water retained. Both preserve
+the existing purchase prices, rent schedules, and building costs. Each
+variant has its own CSV, so editions can use different values.
+
+COLUMNS
+id: unique stable identifier; letters, digits, hyphens, underscores only.
+name: property name, 1–60 characters. Commas and quotes are supported through
+normal CSV quoting. Spreadsheet formulas and control characters are rejected.
+kind: street, railroad, or utility.
+group: brown, light_blue, pink, orange, red, yellow, green, dark_blue for
+streets; railroad for railroads; utility for utilities.
+purchase_price: price paid to the bank.
+mortgage_value: cash received when mortgaging; cannot exceed purchase_price.
+house_cost: price for EACH of houses 1–4 (street only).
+hotel_cost: ADDITIONAL cash for upgrading four houses to a hotel (street only).
+set_multiplier: base-rent multiplier when owner holds the complete group
+and the property has no buildings (normally 2; street only).
+rent_base: street rent without a complete group or buildings.
+rent_1_house, rent_2_houses, rent_3_houses, rent_4_houses, rent_hotel:
+TOTAL rent at each building level, not amounts to add to base rent.
+railroad_rent_1 through railroad_rent_4: rent for that deed when the owner
+holds 1, 2, 3 or 4 railroads respectively.
+utility_multiplier_1 and utility_multiplier_2: multiply dice total by these
+values when the owner holds 1 or 2 utilities respectively.
+
+All numeric values must be nonnegative whole numbers, maximum 1000000.
+Do not include dollar signs, thousands separators or spreadsheet formulas.
+Leave unused numeric columns blank: railroad columns for streets, etc.
+Street house/hotel rent columns must be filled even if their value is zero.
+Up to 128 deeds, at most 4 railroads and 2 utilities. Names and IDs must be
+unique. Street groups use the classic eight colors; custom group names are
+not supported. Group membership is defined by the group column.
+
+CALCULATIONS
+House sales refund half house_cost (rounded down). Downgrading a hotel to
+four houses refunds half hotel_cost. A hotel's net-worth building value is
+4 * house_cost + hotel_cost. Mortgage release interest stays in House rules
+and is applied to mortgage_value. Supply limits remain 32 houses/12 hotels.
+Game actions always calculate amounts on the server using the current sheet.

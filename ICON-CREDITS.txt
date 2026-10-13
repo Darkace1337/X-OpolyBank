@@ -1,0 +1,22 @@
+Game-icons.net SVG icons, CC BY 3.0: https://creativecommons.org/licenses/by/3.0/
+Source: https://github.com/game-icons/icons
+
+hat: lorc — https://game-icons.net/1x1/lorc/top-hat.svg
+car: skoll — https://game-icons.net/1x1/skoll/race-car.svg
+ship: cathelineau — https://game-icons.net/1x1/cathelineau/battleship.svg
+dog: delapouite — https://game-icons.net/1x1/delapouite/sitting-dog.svg
+cat: lorc — https://game-icons.net/1x1/lorc/cat.svg
+duck: delapouite — https://game-icons.net/1x1/delapouite/plastic-duck.svg
+penguin: delapouite — https://game-icons.net/1x1/delapouite/penguin.svg
+rex: lorc — https://game-icons.net/1x1/lorc/dinosaur-rex.svg
+boot: delapouite — https://game-icons.net/1x1/delapouite/chelsea-boot.svg
+wheelbarrow: delapouite — https://game-icons.net/1x1/delapouite/wheelbarrow.svg
+horse: caro-asercion — https://game-icons.net/1x1/caro-asercion/cloaked-figure-on-horseback.svg
+cannon: delapouite — https://game-icons.net/1x1/delapouite/pirate-cannon.svg
+
+Thimble, iron, and money bag: original interface glyphs.
+https://corp.hasbro.com/node/34536/pdf
+
+Library SVG backgrounds removed; interface recolors icons.
+
+Additional piece credits are stored inside the relevant variant folder.
